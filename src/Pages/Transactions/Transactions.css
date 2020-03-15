@@ -1,0 +1,4 @@
+.container__table {
+    height: 290px;
+    overflow-y: scroll;  /* or auto */
+  }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import TransactionsTable from '../../Components/TransactionsTable/TransactionsTable';
-
-
+import { Table } from 'semantic-ui-react'
+import './Transactions.css';
 export default class Transactions extends Component {
     constructor(props){
         super(props);
@@ -34,10 +34,8 @@ export default class Transactions extends Component {
         this.setState({ currency: e.target.value });
       };
     
-      addTransaction(list) {
-        let newList = this.state.list;
-            newList.push(list);
-            this.setState({ list: newList, date: "", type: "", amount: "", currency: "" });
+      addTransaction() {
+            this.setState({ list: [...this.state.list, this.state.date, this.state.type, this.state.amount, this.state.currency], date: "", type: "", amount: "", currency: "" });
       }
 
       deleteTransaction(id) {
@@ -79,15 +77,25 @@ export default class Transactions extends Component {
                 <h1>Transaction</h1>
         <form onSubmit={event => {event.preventDefault();}}>{/*switch between Add and Update*/}
           {/*to write/change a task*/}
-          <input type = "text" value={this.state.date} onChange={e => this.date(e)} />
+          <input type = "date" value={this.state.date} onChange={e => this.date(e)} />
           <input type = "text" value = {this.state.type} onChange = {e => this.type(e)} />
-          <input type = "text" value = {this.state.amount} onChange = {e => this.amount(e)} />
+          <input type = "number" value = {this.state.amount} onChange = {e => this.amount(e)} />
           <input type = "text" value = {this.state.currency} onChange = {e => this.currency(e)} />
           {/*to switch between Add and Update*/}
           <input type = "submit" value = {this.state.editing ? "Update" : "Add"} onClick={
               this.state.editing ? e => this.updateTransaction() : e => this.addTransaction()
             }/>
-        </form>  
+        </form>  <div className="container__table"> 
+        <Table celled selectable size="small" collapsing={true} fixed={true}>
+    <Table.Header>
+      <Table.Row>
+        <Table.HeaderCell>No.</Table.HeaderCell>
+        <Table.HeaderCell>Date</Table.HeaderCell>
+        <Table.HeaderCell>Type</Table.HeaderCell>
+        <Table.HeaderCell>Amount</Table.HeaderCell>
+        <Table.HeaderCell>Currency</Table.HeaderCell>
+      </Table.Row>
+    </Table.Header>
         {this.state.list.map((transaction, index) => 
           <TransactionsTable 
             key = {index} //to get rid of the warning
@@ -97,7 +105,8 @@ export default class Transactions extends Component {
             editTransaction = {this.editTransaction}
           />
         )}
-               
+               </Table>
+               </div>
             </div>
         )
     }
