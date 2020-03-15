@@ -1,0 +1,22 @@
+.financial-menu {
+  .ui.secondary.menu {
+    background-color: rgb(32, 35, 189);
+    padding-left: 30px;
+    padding-right: 30px;;
+
+    .dropdown.item:hover,
+    .link.item:hover,
+     a.item:hover {
+      color: white;
+    }
+
+    .dropdown.item,
+    .link.it,
+     a.item {
+      color: white;
+      padding: 25px;
+    }
+  }
+
+ 
+}
