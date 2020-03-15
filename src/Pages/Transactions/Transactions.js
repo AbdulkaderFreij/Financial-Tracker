@@ -5,7 +5,6 @@ import './Transactions.css';
 export default class Transactions extends Component {
     constructor(props){
         super(props);
-        //setting variables to their default values
         this.state = {
           list: [],
           date: '',
@@ -16,7 +15,7 @@ export default class Transactions extends Component {
           editingIndex: -1
         }
       }
-       //changes the variable 'task' to user input
+    
        date = e => {
         e.preventDefault();
         this.setState({ date: e.target.value });
@@ -34,8 +33,10 @@ export default class Transactions extends Component {
         this.setState({ currency: e.target.value });
       };
     
-      addTransaction() {
-            this.setState({ list: [...this.state.list, this.state.date, this.state.type, this.state.amount, this.state.currency], date: "", type: "", amount: "", currency: "" });
+      addTransaction(input) {
+        let newList = this.state.list;
+        newList.push(input);
+            this.setState({ list: newList, date: "", type: "", amount: "", currency: "" });
       }
 
       deleteTransaction(id) {
@@ -75,8 +76,7 @@ export default class Transactions extends Component {
             
             <div>
                 <h1>Transaction</h1>
-        <form onSubmit={event => {event.preventDefault();}}>{/*switch between Add and Update*/}
-          {/*to write/change a task*/}
+        <form onSubmit={event => {event.preventDefault();}}>
           <input type = "date" value={this.state.date} onChange={e => this.date(e)} />
           <input type = "text" value = {this.state.type} onChange = {e => this.type(e)} />
           <input type = "number" value = {this.state.amount} onChange = {e => this.amount(e)} />
@@ -98,7 +98,7 @@ export default class Transactions extends Component {
     </Table.Header>
         {this.state.list.map((transaction, index) => 
           <TransactionsTable 
-            key = {index} //to get rid of the warning
+            key = {index}
             id = {index}
             value = {transaction} 
             deleteTransaction = {this.deleteTransaction} 
