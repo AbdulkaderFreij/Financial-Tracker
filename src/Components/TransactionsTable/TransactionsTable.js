@@ -1,22 +1,22 @@
 import React from 'react'
-import { Table } from 'semantic-ui-react'
 import { Button, Icon } from 'semantic-ui-react'
+import {  List } from 'semantic-ui-react'
+
 
 const TransactionsTable = (props) => (
-    <Table.Body>
-      <Table.Row>
-        <Table.Cell>{props.id}  <Button  icon floated="right" onClick={() => props.editTransaction(props.id)}>
-    <Icon name='edit' />
-  </Button> <Button  icon floated="right" onClick={() => props.deleteTransaction(props.id)}>
-    <Icon name='delete' />
-  </Button></Table.Cell>
-        <Table.Cell>{props.value.date}</Table.Cell>
-        <Table.Cell>{props.value.type}</Table.Cell>
-        <Table.Cell>{props.value.amount}</Table.Cell>
-        <Table.Cell>{props.value.currency}</Table.Cell>
-      </Table.Row>
-    </Table.Body>
- 
+  <>
+ <List horizontal>
+    <List.Item>{props.id} </List.Item>
+    <List.Item>{props.value.date}</List.Item>
+    <List.Item>{props.value.type}</List.Item>
+    <List.Item>{props.value.type === "income"? "<--" : "-->" }</List.Item>
+    <List.Item>{props.value.category}</List.Item>
+    <List.Item>{props.value.type === "income"? "+" : "-"  &&props.value.amount}</List.Item>
+    <List.Item>{props.value.currency}</List.Item>
+    <List.Item><Button  icon floated="right" onClick={() => props.editTransaction(props.id)}> <Icon name='edit'/></Button></List.Item>
+    <List.Item><Button  icon floated="right" onClick={() => props.deleteTransaction(props.id)}> <Icon name='delete'/></Button></List.Item>
+  </List>
+ </>
 )
 
 export default TransactionsTable;
