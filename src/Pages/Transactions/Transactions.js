@@ -36,6 +36,7 @@ export default class Transactions extends Component {
       addTransaction() {
         let newList = this.state.list;
         const input = {
+          id:this.state.id,
           date: this.state.date,
           type:this.state.type,
           amount:this.state.amount,
@@ -45,17 +46,17 @@ export default class Transactions extends Component {
             this.setState({ list: newList, date: "", type: "", amount: "", currency: "" });
       }
 
-      deleteTransaction=(id)=> {
+deleteTransaction=(id)=> {
         console.log(id);
         let arr = this.state.list;
-        const result = arr.filter(transaction => transaction.id !== id);
+        const result = arr.filter((transaction, index) => index !== id);
         this.setState({ list: result });
       }
 
       editTransaction = id => {
-        const transaction = this.state.list.find(transaction => transaction.id === id);
+        const transaction = this.state.list.find((transaction,index) => index === id);
         console.log(id);
-        console.log(transaction.id);
+        
         this.setState({
           editing: true,
           date: transaction.date,
@@ -67,8 +68,8 @@ export default class Transactions extends Component {
       };
       updateTransaction = () => {
         this.setState({
-          list: this.state.list.map(transaction =>
-            transaction.id === this.state.editingIndex
+          list: this.state.list.map((transaction,index) =>
+            index === this.state.editingIndex
               ? { ...transaction, date: this.state.date, type:this.state.type, amount:this.state.amount, currency:this.state.currency }
               : transaction
           ),

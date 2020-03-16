@@ -5,9 +5,9 @@ import { Button, Icon } from 'semantic-ui-react'
 const TransactionsTable = (props) => (
     <Table.Body>
       <Table.Row>
-        <Table.Cell>{props.id}  <Button  icon floated="right" onClick={() => props.editTransaction(props.value.id)}>
+        <Table.Cell>{props.id}  <Button  icon floated="right" onClick={() => props.editTransaction(props.id)}>
     <Icon name='edit' />
-  </Button> <Button  icon floated="right" onClick={() => props.deleteTransaction(props.value.id)}>
+  </Button> <Button  icon floated="right" onClick={() => props.deleteTransaction(props.id)}>
     <Icon name='delete' />
   </Button></Table.Cell>
         <Table.Cell>{props.value.date}</Table.Cell>
