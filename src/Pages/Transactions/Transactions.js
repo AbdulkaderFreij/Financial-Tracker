@@ -1,6 +1,8 @@
-import React, { Component } from 'react'
+import React, { Component, createRef } from 'react'
 import TransactionsTable from '../../Components/TransactionsTable/TransactionsTable';
 import { Table } from 'semantic-ui-react'
+import { Button, Popup} from 'semantic-ui-react'
+
 import './Transactions.css';
 export default class Transactions extends Component {
     constructor(props){
@@ -12,8 +14,19 @@ export default class Transactions extends Component {
           amount:'',
           currency:'',
           editing: false,
-          editingIndex: -1
+          editingIndex: -1,
+          isOpen: false
         }
+      }
+
+      contextRef = createRef()
+
+      handleOpen = () => {
+        this.setState({ isOpen: true })
+      }
+    
+      handleClose = () => {
+      this.setState({ isOpen: false })
       }
     
        date = e => {
@@ -43,7 +56,7 @@ export default class Transactions extends Component {
           currency:this.state.currency
         }
         newList.push(input);
-            this.setState({ list: newList, date: "", type: "", amount: "", currency: "" });
+            this.setState({ list: newList, isOpen:false, date: "", type: "", amount: "", currency: "" });
       }
 
 deleteTransaction=(id)=> {
@@ -59,6 +72,7 @@ deleteTransaction=(id)=> {
         
         this.setState({
           editing: true,
+          isOpen:true,
           date: transaction.date,
           type: transaction.type,
           amount: transaction.amount,
@@ -74,6 +88,7 @@ deleteTransaction=(id)=> {
               : transaction
           ),
           editing: false,
+          isOpen:false,
           date: "",
           type: "",
           amount: "",
@@ -87,16 +102,29 @@ deleteTransaction=(id)=> {
             
             <div>
                 <h1>Transaction</h1>
-        <form onSubmit={event => {event.preventDefault();}}>
-          <input type = "date" value={this.state.date} onChange={e => this.date(e)} />
-          <input type = "text" value = {this.state.type} onChange = {e => this.type(e)} />
-          <input type = "number" value = {this.state.amount} onChange = {e => this.amount(e)} />
-          <input type = "text" value = {this.state.currency} onChange = {e => this.currency(e)} />
-          {/*to switch between Add and Update*/}
-          <input type = "submit" value = {this.state.editing ? "Update" : "Add"} onClick={
-              this.state.editing ? e => this.updateTransaction() : e => this.addTransaction()
-            }/>
-        </form>  <div className="container__table"> 
+            <React.Fragment>
+          <Popup
+            trigger={<Button content='Add Transaction' />}
+            context={this.contextRef}
+            content={<form onSubmit={event => {event.preventDefault();}}>
+            <input type = "date" value={this.state.date} onChange={e => this.date(e)} />
+            <input type = "text" value = {this.state.type} onChange = {e => this.type(e)} />
+            <input type = "number" value = {this.state.amount} onChange = {e => this.amount(e)} />
+            <input type = "text" value = {this.state.currency} onChange = {e => this.currency(e)} />
+            {/*to switch between Add and Update*/}
+            <input type = "submit" value = {this.state.editing ? "Update" : "Add"} onClick={
+                this.state.editing ? e => this.updateTransaction() && this.handleClose : e => this.addTransaction() && this.handleClose
+              }/>
+          </form> }
+            on='click'
+            open={this.state.isOpen}
+            onClose={this.handleClose}
+            onOpen={this.handleOpen}
+            position='top center'
+          />        ---------------------------->
+          <strong ref={this.contextRef}>here</strong>
+      </React.Fragment>
+         <div className="container__table"> 
         <Table celled selectable size="small" collapsing={true} fixed={true}>
     <Table.Header>
       <Table.Row>
