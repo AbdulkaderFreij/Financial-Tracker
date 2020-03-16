@@ -33,13 +33,19 @@ export default class Transactions extends Component {
         this.setState({ currency: e.target.value });
       };
     
-      addTransaction(input) {
+      addTransaction() {
         let newList = this.state.list;
+        const input = {
+          date: this.state.date,
+          type:this.state.type,
+          amount:this.state.amount,
+          currency:this.state.currency
+        }
         newList.push(input);
             this.setState({ list: newList, date: "", type: "", amount: "", currency: "" });
       }
 
-      deleteTransaction(id) {
+      deleteTransaction=(id)=> {
         let arr = this.state.list;
         const result = arr.filter(transaction => transaction.id !== id);
         this.setState({ list: result });
