@@ -46,6 +46,7 @@ export default class Transactions extends Component {
       }
 
       deleteTransaction=(id)=> {
+        console.log(id);
         let arr = this.state.list;
         const result = arr.filter(transaction => transaction.id !== id);
         this.setState({ list: result });
@@ -53,6 +54,8 @@ export default class Transactions extends Component {
 
       editTransaction = id => {
         const transaction = this.state.list.find(transaction => transaction.id === id);
+        console.log(id);
+        console.log(transaction.id);
         this.setState({
           editing: true,
           date: transaction.date,
@@ -62,7 +65,7 @@ export default class Transactions extends Component {
           editingIndex: id
         });
       };
-      updateTransaction = async () => {
+      updateTransaction = () => {
         this.setState({
           list: this.state.list.map(transaction =>
             transaction.id === this.state.editingIndex
@@ -75,6 +78,7 @@ export default class Transactions extends Component {
           amount: "",
           currency: ""
         });
+        
       };
 
     render() {
