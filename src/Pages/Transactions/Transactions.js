@@ -6,6 +6,7 @@ import { Input } from 'semantic-ui-react'
 import { Dropdown } from 'semantic-ui-react'
 import { Header, Image, Modal } from 'semantic-ui-react'
 import { Form, Label } from 'semantic-ui-react'
+import TotalAmount from '../../Components/TotalAmount/TotalAmount';
 import './Transactions.css';
 
 const category = [
@@ -118,7 +119,7 @@ deleteTransaction=(id)=> {
       };
 
     render() {
-        return (
+        return (<>
             <div className="transaction-container">
               <div className="transaction-flex">
               <h1 className="transaction-item">Transactions</h1>
@@ -198,9 +199,25 @@ deleteTransaction=(id)=> {
             editTransaction = {this.editTransaction}
           />
       </List.Item>
-        </List>)}
+       
+       <List.Item>
+       </List.Item>
+        </List>)  
+        }
+
+   
                </div>
             </div>
+                        <h3>Total Income: </h3>
+                        {this.state.list.map((transaction, index) =>
+                        <>
+                        <TotalAmount   
+                         key = {index}        
+                        id = {index}
+                        value = {transaction}/>
+                        </>
+                        )}
+                        </>
         )
     }
 }

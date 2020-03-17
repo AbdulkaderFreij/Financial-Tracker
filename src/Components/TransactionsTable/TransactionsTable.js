@@ -1,21 +1,19 @@
 import React from 'react'
 import { Button, Icon } from 'semantic-ui-react'
-import {  List } from 'semantic-ui-react'
+import { Grid } from 'semantic-ui-react'
 
 
 const TransactionsTable = (props) => (
   <>
- <List horizontal>
-    <List.Item>{props.id} </List.Item>
-    <List.Item>{props.value.date}</List.Item>
-    <List.Item>{props.value.type}</List.Item>
-    <List.Item>{props.value.type === "income"? "<--" : "-->" }</List.Item>
-    <List.Item>{props.value.category}</List.Item>
-    <List.Item>{props.value.type === "income"? "+" : "-"  &&props.value.amount}</List.Item>
-    <List.Item>{props.value.currency}</List.Item>
-    <List.Item><Button  icon floated="right" onClick={() => props.editTransaction(props.id)}> <Icon name='edit'/></Button></List.Item>
-    <List.Item><Button  icon floated="right" onClick={() => props.deleteTransaction(props.id)}> <Icon name='delete'/></Button></List.Item>
-  </List>
+ <Grid columns={7}>
+    <Grid.Column>{props.id}</Grid.Column>
+    <Grid.Column>{props.value.date}</Grid.Column>
+    <Grid.Column>{props.value.type === "Fixed Income" || props.value.type === "Recurring Income" ? <Icon name='arrow left'/> : props.value.type === "Fixed Expense" || props.value.type === "Recurring Expense" ? <Icon name='arrow right'/> : null}</Grid.Column>
+    <Grid.Column>{props.value.category}</Grid.Column>
+    <Grid.Column>{props.value.type === "Fixed Income" || props.value.type === "Recurring Income" ? `+ ${props.value.amount}` : props.value.type === "Fixed Expense" || props.value.type === "Recurring Expense" ? `- ${props.value.amount}`:null }</Grid.Column>
+    <Grid.Column>{props.value.currency}</Grid.Column>
+    <Grid.Column><Button  icon floated="right" onClick={() => props.editTransaction(props.id)}> <Icon name='edit'/></Button> <Button  icon floated="right" onClick={() => props.deleteTransaction(props.id)}> <Icon name='delete'/></Button></Grid.Column>
+  </Grid>
  </>
 )
 
