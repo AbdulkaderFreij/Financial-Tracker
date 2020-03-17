@@ -6,7 +6,6 @@ import { Input } from 'semantic-ui-react'
 import { Dropdown } from 'semantic-ui-react'
 import { Header, Image, Modal } from 'semantic-ui-react'
 import { Form, Label } from 'semantic-ui-react'
-import TotalAmount from '../../Components/TotalAmount/TotalAmount';
 import './Transactions.css';
 
 const category = [
