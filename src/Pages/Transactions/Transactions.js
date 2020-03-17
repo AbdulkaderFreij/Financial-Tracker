@@ -119,6 +119,20 @@ deleteTransaction=(id)=> {
       };
 
     render() {
+
+      
+      function sumProperty(arr, type) {
+        return arr.reduce((total, obj) => {
+          if (typeof obj[type] === 'string') {
+            return total + Number(obj[type]);
+          }
+          return total + obj[type];
+        }, 0);
+      }
+      
+      let totalAmount = ( sumProperty(this.state.list, 'amount') ).toFixed(2); 
+      console.log(  totalAmount  ); // 29.98
+      
         return (<>
             <div className="transaction-container">
               <div className="transaction-flex">
@@ -208,15 +222,7 @@ deleteTransaction=(id)=> {
    
                </div>
             </div>
-                        <h3>Total Income: </h3>
-                        {this.state.list.map((transaction, index) =>
-                        <>
-                        <TotalAmount   
-                         key = {index}        
-                        id = {index}
-                        value = {transaction}/>
-                        </>
-                        )}
+                        <h3>Total Income:{totalAmount}</h3> 
                         </>
         )
     }
