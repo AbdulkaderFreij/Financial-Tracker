@@ -1,9 +1,10 @@
-import React, { Component, createRef } from 'react'
+import React, { Component } from 'react'
 import TransactionsTable from '../../Components/TransactionsTable/TransactionsTable';
-import { Button, Popup} from 'semantic-ui-react'
+import { Button} from 'semantic-ui-react'
 import {  List } from 'semantic-ui-react'
 import { Input } from 'semantic-ui-react'
 import { Dropdown } from 'semantic-ui-react'
+import { Header, Image, Modal } from 'semantic-ui-react'
 import './Transactions.css';
 
 const category = [
@@ -29,8 +30,6 @@ export default class Transactions extends Component {
           isOpen: false
         }
       }
-
-      contextRef = createRef()
 
       handleOpen = () => {
         this.setState({ isOpen: true })
@@ -120,11 +119,15 @@ deleteTransaction=(id)=> {
     render() {
         return (
             <div>
-                <h1>Transactions<React.Fragment>
-          <Popup
-            trigger={<Button icon="edit" content='New' />}
-            context={this.contextRef}
-            content={<form onSubmit={event => {event.preventDefault();}}>
+              <div className="transaction-flex">
+              <h1>Transactions</h1>
+                <Modal trigger={<Button>New</Button>} centered={false}>
+                <Modal.Header>Transactions</Modal.Header>
+                <Modal.Content image>
+      <Image wrapped size='medium' src='https://react.semantic-ui.com/images/avatar/large/rachel.png' />
+      <Modal.Description>
+        <Header>Add a Transaction</Header>
+        <form onSubmit={event => {event.preventDefault();}}>
               Date: <br/>
             <input type = "date" value={this.state.date} onChange={e => this.date(e)} /> 
             <br/> Type: <br/>
@@ -154,15 +157,11 @@ deleteTransaction=(id)=> {
             <input type = "submit" value = {this.state.editing ? "Update" : "Add"} onClick={
                 this.state.editing ? e => this.updateTransaction() && this.handleClose : e => this.addTransaction() && this.handleClose
               }/>
-          </form> }
-            on='click'
-            open={this.state.isOpen}
-            onClose={this.handleClose}
-            onOpen={this.handleOpen}
-            position='top center'
-          />        ---------------------------->
-          <strong ref={this.contextRef}>here</strong>
-      </React.Fragment></h1>
+          </form> 
+      </Modal.Description>
+    </Modal.Content>
+  </Modal>
+  </div>
 
          <div className="container__table"> 
     {this.state.list.map((transaction, index) => 

@@ -2,3 +2,7 @@
     height: 290px;
     overflow-y: scroll;  /* or auto */
   }
+  .transaction-flex{
+    display: flex;
+    flex-direction: row;
+  }
