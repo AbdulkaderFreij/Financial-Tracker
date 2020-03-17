@@ -5,6 +5,7 @@ import {  List } from 'semantic-ui-react'
 import { Input } from 'semantic-ui-react'
 import { Dropdown } from 'semantic-ui-react'
 import { Header, Image, Modal } from 'semantic-ui-react'
+import { Form, Label } from 'semantic-ui-react'
 import './Transactions.css';
 
 const category = [
@@ -118,28 +119,40 @@ deleteTransaction=(id)=> {
 
     render() {
         return (
-            <div>
+            <div className="transaction-container">
               <div className="transaction-flex">
-              <h1>Transactions</h1>
-                <Modal trigger={<Button>New</Button>} centered={false}>
+              <h1 className="transaction-item">Transactions</h1>
+              <div className="trigger-button">
+                <Modal trigger={<Button content="New" icon='edit'/>} centered={false}             on='click'
+            open={this.state.isOpen}
+            onClose={this.handleClose}
+            onOpen={this.handleOpen}>
                 <Modal.Header>Transactions</Modal.Header>
                 <Modal.Content image>
       <Image wrapped size='medium' src='https://react.semantic-ui.com/images/avatar/large/rachel.png' />
       <Modal.Description>
         <Header>Add a Transaction</Header>
-        <form onSubmit={event => {event.preventDefault();}}>
-              Date: <br/>
-            <input type = "date" value={this.state.date} onChange={e => this.date(e)} /> 
-            <br/> Type: <br/>
-            <Input list='type' placeholder='Choose type...' value={this.state.type} onChange={e=>this.type(e)}/>
+        <Form onSubmit={event => {event.preventDefault();}}>
+    <Form.Field>
+      <input type = "date" value={this.state.date} onChange={e => this.date(e)} />
+      <Label basic color='red' pointing>
+        Please enter a date
+      </Label>
+    </Form.Field>
+    <Form.Field>
+    <Input list='type' placeholder='Choose type...' value={this.state.type} onChange={e=>this.type(e)}/>
     <datalist id='type'>
       <option value='Fixed Income' />
       <option value='Recurring Income' />
       <option value='Fixed Expense' />
       <option value='Recurring Expense' />
     </datalist>
-    <br/> Category: <br/>
-            <Dropdown
+      <Label basic color='red' pointing>
+        Please enter a type
+      </Label>
+    </Form.Field>
+    <Form.Field>
+    <Dropdown
         options={this.state.category}
         placeholder='Choose a Category'
         search
@@ -150,19 +163,30 @@ deleteTransaction=(id)=> {
         onAddItem={this.handleAddition}
         onChange={this.handleChange}
       />
-       <br/> Amount: <br/>
-            <input type = "number" value = {this.state.amount} onChange = {e => this.amount(e)} />
-            <br/> Currency: <br/>
-            <input type = "text" value = {this.state.currency} onChange = {e => this.currency(e)} />
-            <input type = "submit" value = {this.state.editing ? "Update" : "Add"} onClick={
+    </Form.Field>
+    <Form.Field>
+      <input type='number' placeholder='Enter an amount' value = {this.state.amount} onChange = {e => this.amount(e)} />
+      <Label basic color='red' pointing>
+        Please enter an amount
+      </Label>
+    </Form.Field>
+    <Form.Field>
+      <input type='text' placeholder='Enter a currency' value = {this.state.currency} onChange = {e => this.currency(e)} />
+      <Label basic color='red' pointing>
+        Please enter a currency
+      </Label>
+    </Form.Field>
+    <Form.Field>
+    <input type = "submit" value = {this.state.editing ? "Update" : "Add"} onClick={
                 this.state.editing ? e => this.updateTransaction() && this.handleClose : e => this.addTransaction() && this.handleClose
               }/>
-          </form> 
+              </Form.Field>
+    </Form>
       </Modal.Description>
     </Modal.Content>
   </Modal>
   </div>
-
+  </div>
          <div className="container__table"> 
     {this.state.list.map((transaction, index) => 
 <List key={index}>
