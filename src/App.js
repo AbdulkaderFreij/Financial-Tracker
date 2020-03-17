@@ -1,9 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-
 import SideBar from "./Components/SideBar/SideBar";
 import AppMenu from "./Components/Menu/AppMenu";
-
 import "./App.css";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import Reports from "./Pages/Reports/Reports";
@@ -15,7 +13,6 @@ import HomePage from "./Pages/HomePage/HomePage";
 class App extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       loggedIn: false
     };
@@ -42,11 +39,10 @@ class App extends React.Component {
           <AppMenu
             loggedIn={loggedIn}
             handleLogin={handleLogin}
-            handleLogout={handleLogout}
-          />
+            handleLogout={handleLogout}/>
           <Switch>
-            <Route path="/home" exact component={HomePage} />
-            {loggedIn ? <SideBar app_routes={<AppRoutes />} /> : <HomePage />}
+            <Route path="/home" exact component={HomePage}/>
+            {loggedIn ? <SideBar app_routes={<AppRoutes/>}/> : <HomePage />}
           </Switch>
         </div>
       </Router>

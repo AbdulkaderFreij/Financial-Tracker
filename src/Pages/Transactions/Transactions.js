@@ -7,11 +7,11 @@ import { Dropdown } from 'semantic-ui-react'
 import './Transactions.css';
 
 const category = [
-  { key: 'English', text: 'English', value: 'English' },
-  { key: 'French', text: 'French', value: 'French' },
-  { key: 'Spanish', text: 'Spanish', value: 'Spanish' },
-  { key: 'German', text: 'German', value: 'German' },
-  { key: 'Chinese', text: 'Chinese', value: 'Chinese' },
+  { key: 'groceries', text: 'groceries', value: 'groceries' },
+  { key: 'salary', text: 'salary', value: 'salary' },
+  { key: 'rent', text: 'rent', value: 'rent' },
+  { key: 'car loan', text: 'car loan', value: 'car loan' },
+  { key: 'mobile bill', text: 'mobile bill', value: 'mobile bill' },
 ]
 
 export default class Transactions extends Component {
@@ -56,11 +56,6 @@ export default class Transactions extends Component {
         e.preventDefault();
         this.setState({ currency: e.target.value });
       };
-
-      // category=e=>{
-      //   e.preventDefault();
-      //   this.setState({category:e.target.value});
-      // }
 
       handleAddition = (e, { value }) => {
         this.setState((prevState) => ({
@@ -130,8 +125,9 @@ deleteTransaction=(id)=> {
             trigger={<Button icon="edit" content='New' />}
             context={this.contextRef}
             content={<form onSubmit={event => {event.preventDefault();}}>
-            <input type = "date" value={this.state.date} onChange={e => this.date(e)} />
-            {/* <input type = "text" value = {this.state.type} onChange = {e => this.type(e)} /> */}
+              Date: <br/>
+            <input type = "date" value={this.state.date} onChange={e => this.date(e)} /> 
+            <br/> Type: <br/>
             <Input list='type' placeholder='Choose type...' value={this.state.type} onChange={e=>this.type(e)}/>
     <datalist id='type'>
       <option value='Fixed Income' />
@@ -139,9 +135,10 @@ deleteTransaction=(id)=> {
       <option value='Fixed Expense' />
       <option value='Recurring Expense' />
     </datalist>
+    <br/> Category: <br/>
             <Dropdown
         options={this.state.category}
-        placeholder='Choose Language'
+        placeholder='Choose a Category'
         search
         selection
         fluid
@@ -150,7 +147,9 @@ deleteTransaction=(id)=> {
         onAddItem={this.handleAddition}
         onChange={this.handleChange}
       />
+       <br/> Amount: <br/>
             <input type = "number" value = {this.state.amount} onChange = {e => this.amount(e)} />
+            <br/> Currency: <br/>
             <input type = "text" value = {this.state.currency} onChange = {e => this.currency(e)} />
             <input type = "submit" value = {this.state.editing ? "Update" : "Add"} onClick={
                 this.state.editing ? e => this.updateTransaction() && this.handleClose : e => this.addTransaction() && this.handleClose
