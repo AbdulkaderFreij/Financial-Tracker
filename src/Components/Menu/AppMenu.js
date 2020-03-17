@@ -32,14 +32,16 @@ export default class AppMenu extends Component {
               <>
                 <Menu.Item
                   name="sign-up"
-                  active={activeItem === "sign-up"}
+                  active={activeItem === "signup"}
                   as={Link}
-                  to='sign-up'
+                  to='/signup'
                 />
                 <Menu.Item
                   name="login"
                   active={activeItem === "login"}
-                  onClick={this.props.handleLogin}
+                  as={Link}
+                  // onClick={this.props.handleLogin}
+                  to='/signin'
                 />
               </>
             )}

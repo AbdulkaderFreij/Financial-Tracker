@@ -118,19 +118,46 @@ deleteTransaction=(id)=> {
       };
 
     render() {
-
-      
       function sumProperty(arr, type) {
         return arr.reduce((total, obj) => {
           if (typeof obj[type] === 'string') {
+            if(obj["type"]==='Fixed Income' ||obj["type"]==='Recurring Income' )
             return total + Number(obj[type]);
+            else
+            return total - Number(obj[type]);
           }
           return total + obj[type];
         }, 0);
       }
-      
       let totalAmount = ( sumProperty(this.state.list, 'amount') ).toFixed(2); 
-      console.log(  totalAmount  ); // 29.98
+      console.log(  totalAmount  );
+    
+      function sumIncome(arr, type) {
+        return arr.reduce((total, obj) => {
+          if (typeof obj[type] === 'string') {
+            if(obj["type"]==='Fixed Income' ||obj["type"]==='Recurring Income' )
+            return total + Number(obj[type]);
+            else return total;
+          }
+          return total + obj[type];
+        }, 0);
+      }
+      let totalIncome = ( sumIncome(this.state.list, 'amount') ).toFixed(2); 
+      console.log(  totalIncome  );
+
+
+      function sumExpense(arr, type) {
+        return arr.reduce((total, obj) => {
+          if (typeof obj[type] === 'string') {
+            if(obj["type"]==='Fixed Expense' ||obj["type"]==='Recurring Expense' )
+            return total - Number(obj[type]);
+            else return total;
+          }
+          return total + obj[type];
+        }, 0);
+      }
+      let totalExpense = ( sumExpense(this.state.list, 'amount') ).toFixed(2); 
+      console.log(  totalExpense  );
       
         return (<>
             <div className="transaction-container">
@@ -212,16 +239,15 @@ deleteTransaction=(id)=> {
             editTransaction = {this.editTransaction}
           />
       </List.Item>
-       
        <List.Item>
        </List.Item>
         </List>)  
         }
-
-   
                </div>
             </div>
-                        <h3>Total Income:{totalAmount}</h3> 
+                        <h3>Total Income:{totalIncome}</h3>
+                        <h3>Total Expense:{totalExpense}</h3>
+                        <h3>Savings:{totalAmount}</h3>   
                         </>
         )
     }
