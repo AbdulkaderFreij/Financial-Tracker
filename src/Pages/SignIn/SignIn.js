@@ -7,29 +7,11 @@ import {
   Message,
   Segment
 } from "semantic-ui-react";
-import { Link, Switch, Route } from "react-router-dom";
-import Dashboard from '../Dashboard/Dashboard';
-import Reports from '../Reports/Reports';
-import Goals from '../Goals/Goals';
-import Transactions from '../Transactions/Transactions';
-import AppSettings from '../AppSettings/AppSettings';
-import '../../Components/SideBar/SideBar.css';
+import { Link } from "react-router-dom";
 import SideBar from '../../Components/SideBar/SideBar';
+import AppRoutes from '../../App';
 
 
-const AppRoutes = () => {
-  return (
-    <>
-    <Switch>
-      <Route path="/" strict exact component={Dashboard} />
-      <Route path="/reports" component={Reports} />
-      <Route path="/goals" component={Goals} />
-      <Route path="/transactions" component={Transactions} />
-      <Route path="/settings" component={AppSettings} />
-      </Switch>
-    </>
-  );
-};
 export default class SignIn extends Component {
   constructor(props) {
 		super(props);
