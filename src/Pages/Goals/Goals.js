@@ -141,15 +141,9 @@ deleteGoal=(id)=> {
       </Label>
     </Form.Field>
     <Form.Field>
-    <Input list='type' placeholder='Choose type...' value={this.state.type} onChange={e=>this.type(e)}/>
-    <datalist id='type'>
-      <option value='Fixed Income' />
-      <option value='Recurring Income' />
-      <option value='Fixed Expense' />
-      <option value='Recurring Expense' />
-    </datalist>
+    <Input type='text' placeholder='Enter description..' value={this.state.description} onChange={e=>this.description(e)}/>
       <Label basic color='red' pointing>
-        Please enter a type
+        Please enter a description
       </Label>
     </Form.Field>
     <Form.Field>
@@ -177,11 +171,12 @@ deleteGoal=(id)=> {
         Please enter a currency
       </Label>
     </Form.Field>
-    <Form.Field>
-    <input type = "submit" value = {this.state.editing ? "Update" : "Add"} onClick={
-                this.state.editing ? e => this.updateGoal() && this.handleClose : e => this.addGoal() && this.handleClose
-              }/>
-              </Form.Field>
+    {/* <Form.Field>
+    <Button positive onClick={ this.state.editing ? e => this.updateGoal() && this.handleClose : e => this.addGoal() && this.handleClose
+              }>{this.state.editing ? "Update" : "Add"}</Button>
+              </Form.Field> */}
+              {this.state.editing ? <Button negative onClick={ e => this.updateGoal() && this.handleClose }>Update</Button>  :  <Button positive onClick={ e => this.addGoal() && this.handleClose
+              }>Add</Button>}
     </Form>
       </Modal.Description>
     </Modal.Content>

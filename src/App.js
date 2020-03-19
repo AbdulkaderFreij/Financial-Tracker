@@ -10,6 +10,7 @@ import AppSettings from "./Pages/AppSettings/AppSettings";
 import HomePage from "./Pages/HomePage/HomePage";
 import SignIn from "./Pages/SignIn/SignIn";
 import SignUp from './Pages/SignUp/SignUp';
+import SideBar from './Components/SideBar/SideBar';
 
 class App extends React.Component {
   constructor(props) {
@@ -41,11 +42,11 @@ class App extends React.Component {
             loggedIn={loggedIn}
             handleLogin={handleLogin}
             handleLogout={handleLogout}/>
+  {this.state.loggedIn ? (<SideBar app_routes={<AppRoutes/>}/>):null}
           <Switch>
-            <Route path="/home" exact component={HomePage}/>
-            <Route path="/signin" exact component={SignIn}/>
+            <Route path="/" exact render={(props)=>loggedIn ?<SideBar app_routes={<AppRoutes/>}/> : <HomePage />}/>
+            <Route path="/signin" exact render={(props)=><SignIn handleLogin={this.handleLogin} {...props}/>}/>
             <Route path="/signup" exact component={SignUp}/>
-            {loggedIn ? <SignIn/> : <HomePage />}
           </Switch>
         </div>
       </Router>

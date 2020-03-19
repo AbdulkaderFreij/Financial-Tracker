@@ -8,9 +8,6 @@ import {
   Segment
 } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-import SideBar from '../../Components/SideBar/SideBar';
-import AppRoutes from '../../App';
-
 
 export default class SignIn extends Component {
   constructor(props) {
@@ -29,23 +26,20 @@ export default class SignIn extends Component {
 		this.setState({ password: e.target.value });
 	};
 
-	signIn =  (event) => {
-		event.preventDefault();
-		const { username, password } = this.state;
-	
-		if (username==="abd" && password==="123") {
+  signIn =  (event) => {
+    event.preventDefault();
+    const { username, password } = this.state;
 
-      return (
-      <>
-      <SideBar app_routes={<AppRoutes/>}/>
-      </>
-      )
-		}
-		else {
-			alert("Wrong username or password");
-		}
+    if (username==="abd" && password==="123") {
 
-	}
+ this.props.handleLogin();
+ this.props.history.push('/');
+    }
+    else {
+        alert("Wrong username or password");
+    }
+
+}
   render() {
     return (
       <Grid
