@@ -4,7 +4,7 @@ import { Button } from "semantic-ui-react";
 import { List } from "semantic-ui-react";
 import { Input } from "semantic-ui-react";
 import { Dropdown } from "semantic-ui-react";
-import { Header, Image, Modal } from "semantic-ui-react";
+import { Header, Image, Modal, Transition } from "semantic-ui-react";
 import { Form, Label } from "semantic-ui-react";
 import "./Transactions.css";
 
@@ -15,6 +15,11 @@ const category = [
   { key: "car loan", text: "car loan", value: "car loan" },
   { key: "mobile bill", text: "mobile bill", value: "mobile bill" }
 ];
+const currency = [
+  { key: "USD", currency: "USD", value: "USD", text: "USD", symbol: "$" },
+  { key: "EUR", currency: "EUR", value: "EUR", text: "EUR", symbol: "€" },
+  { key: "JPY", currency: "JPY", value: "JPY", text: "JPY", symbol: "¥" }
+];
 
 export default class Transactions extends Component {
   constructor(props) {
@@ -24,8 +29,10 @@ export default class Transactions extends Component {
       date: "",
       type: "",
       amount: "",
+      interval: "",
+      isRecurring: false,
       category: category,
-      currency: "",
+      currency: currency,
       editing: false,
       editingIndex: -1,
       isOpen: false
@@ -47,14 +54,16 @@ export default class Transactions extends Component {
   type = e => {
     e.preventDefault();
     this.setState({ type: e.target.value });
+    console.log("type", e.target.value);
+    e.target.value === "Recurring Income" || e.target.value === "Recurring Expense" ? this.setState({isRecurring: true}) : this.setState({isRecurring:false})
   };
   amount = e => {
     e.preventDefault();
     this.setState({ amount: e.target.value });
   };
-  currency = e => {
+  interval = e => {
     e.preventDefault();
-    this.setState({ currency: e.target.value });
+    this.setState({ interval: e.target.value });
   };
 
   handleAddition = (e, { value }) => {
@@ -64,6 +73,8 @@ export default class Transactions extends Component {
   };
 
   handleChange = (e, { value }) => this.setState({ currentValue: value });
+  handleChangeCurrency = (e, { value }) =>
+    this.setState({ currentValueCurrency: value });
 
   addTransaction() {
     let newList = this.state.list;
@@ -71,7 +82,8 @@ export default class Transactions extends Component {
       date: this.state.date,
       type: this.state.type,
       amount: this.state.amount,
-      currency: this.state.currency,
+      interval:this.state.interval,
+      currency: this.state.currentValueCurrency,
       category: this.state.currentValue
     };
     console.log(input);
@@ -82,7 +94,8 @@ export default class Transactions extends Component {
       date: "",
       type: "",
       amount: "",
-      currency: "",
+      interval:"",
+      currency: currency,
       category: category
     });
   }
@@ -105,7 +118,8 @@ export default class Transactions extends Component {
       date: transaction.date,
       type: transaction.type,
       amount: transaction.amount,
-      currency: transaction.currency,
+      interval: transaction.interval,
+      currency: currency,
       category: category,
       editingIndex: id
     });
@@ -119,7 +133,8 @@ export default class Transactions extends Component {
               date: this.state.date,
               type: this.state.type,
               amount: this.state.amount,
-              currency: this.state.currency,
+              interval:this.state.interval,
+              currency: this.state.currentValueCurrency,
               category: this.state.currentValue
             }
           : transaction
@@ -129,7 +144,8 @@ export default class Transactions extends Component {
       date: "",
       type: "",
       amount: "",
-      currency: "",
+      interval:"",
+      currency: currency,
       category: category
     });
   };
@@ -213,7 +229,7 @@ export default class Transactions extends Component {
                     >
                       <Form.Field>
                         <input
-                          type="date"
+                          type="datetime-local"
                           value={this.state.date}
                           onChange={e => this.date(e)}
                         />
@@ -238,7 +254,18 @@ export default class Transactions extends Component {
                           Please enter a type
                         </Label>
                       </Form.Field>
-                      <Form.Field>
+                      {this.state.isRecurring ? (<Form.Field>
+                        <input
+                          type="number"
+                          placeholder="Enter an interval"
+                          value={this.state.interval}
+                          onChange={e => this.interval(e)}
+                        />
+                        <Label basic color="red" pointing>
+                          Please enter an interval
+                        </Label>
+                      </Form.Field>) : null}
+                        <Form.Field>
                         <Dropdown
                           options={this.state.category}
                           placeholder="Choose a Category"
@@ -250,6 +277,9 @@ export default class Transactions extends Component {
                           onAddItem={this.handleAddition}
                           onChange={this.handleChange}
                         />
+                        <Label basic color="red" pointing>
+                          Please enter a category
+                        </Label>
                       </Form.Field>
                       <Form.Field>
                         <input
@@ -263,21 +293,19 @@ export default class Transactions extends Component {
                         </Label>
                       </Form.Field>
                       <Form.Field>
-                        <input
-                          type="text"
-                          placeholder="Enter a currency"
-                          value={this.state.currency}
-                          onChange={e => this.currency(e)}
+                        <Dropdown
+                          options={this.state.currency}
+                          placeholder="Choose a currency"
+                          search
+                          selection
+                          fluid
+                          value={this.state.currentValueCurrency}
+                          onChange={this.handleChangeCurrency}
                         />
                         <Label basic color="red" pointing>
                           Please enter a currency
                         </Label>
                       </Form.Field>
-                      {/* <Form.Field>
-    <input type = "submit" value = {this.state.editing ? "Update" : "Add"} onClick={
-                this.state.editing ? e => this.updateTransaction() && this.handleClose : e => this.addTransaction() && this.handleClose
-              }/>
-              </Form.Field> */}
                       {this.state.editing ? (
                         <Button
                           negative
@@ -304,6 +332,7 @@ export default class Transactions extends Component {
             </div>
           </div>
           <div className="container__table">
+          <Transition.Group animation='scale' duration={500}>
             {this.state.list.map((transaction, index) => (
               <List key={index}>
                 <List.Item>
@@ -314,9 +343,9 @@ export default class Transactions extends Component {
                     editTransaction={this.editTransaction}
                   />
                 </List.Item>
-                <List.Item></List.Item>
               </List>
             ))}
+            </Transition.Group>
           </div>
         </div>
         <h3>Total Income:{totalIncome}</h3>

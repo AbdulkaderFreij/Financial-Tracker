@@ -171,10 +171,6 @@ deleteGoal=(id)=> {
         Please enter a currency
       </Label>
     </Form.Field>
-    {/* <Form.Field>
-    <Button positive onClick={ this.state.editing ? e => this.updateGoal() && this.handleClose : e => this.addGoal() && this.handleClose
-              }>{this.state.editing ? "Update" : "Add"}</Button>
-              </Form.Field> */}
               {this.state.editing ? <Button negative onClick={ e => this.updateGoal() && this.handleClose }>Update</Button>  :  <Button positive onClick={ e => this.addGoal() && this.handleClose
               }>Add</Button>}
     </Form>
