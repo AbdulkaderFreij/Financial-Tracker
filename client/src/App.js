@@ -8,8 +8,8 @@ import Goals from "./Pages/Goals/Goals";
 import Transactions from "./Pages/Transactions/Transactions";
 import AppSettings from "./Pages/AppSettings/AppSettings";
 import HomePage from "./Pages/HomePage/HomePage";
-import SignIn from "./Pages/SignIn/SignIn";
-import SignUp from './Pages/SignUp/SignUp';
+import Login from "./Pages/Login/Login";
+import Register from './Pages/Register/Register';
 import SideBar from './Components/SideBar/SideBar';
 
 class App extends React.Component {
@@ -45,8 +45,8 @@ class App extends React.Component {
   {this.state.loggedIn ? (<SideBar app_routes={<AppRoutes/>}/>):null}
           <Switch>
             <Route path="/" exact render={(props)=>loggedIn ?<SideBar app_routes={<AppRoutes/>}/> : <HomePage />}/>
-            <Route path="/signin" exact render={(props)=><SignIn handleLogin={this.handleLogin} {...props}/>}/>
-            <Route path="/signup" exact component={SignUp}/>
+            <Route path="/login" exact render={(props)=><Login handleLogin={this.handleLogin} {...props}/>}/>
+            <Route path="/register" exact component={Register}/>
           </Switch>
         </div>
       </Router>

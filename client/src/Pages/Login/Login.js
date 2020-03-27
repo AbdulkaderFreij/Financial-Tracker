@@ -9,7 +9,7 @@ import {
 } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
-export default class SignIn extends Component {
+export default class Login extends Component {
   constructor(props) {
 		super(props);
 		this.state = {
@@ -79,7 +79,7 @@ export default class SignIn extends Component {
             </Segment>
           </Form>
           <Message>
-            New to us? <Link to="/signup">Sign Up</Link>
+            New to us? <Link to="/register">Register</Link>
           </Message>
         </Grid.Column>
       </Grid>

@@ -34,14 +34,14 @@ export default class AppMenu extends Component {
                   name="sign-up"
                   active={activeItem === "signup"}
                   as={Link}
-                  to='/signup'
+                  to='/register'
                 />
                 <Menu.Item
                   name="login"
                   active={activeItem === "login"}
                   as={Link}
                   // onClick={this.props.handleLogin}
-                  to='/signin'
+                  to='/login'
                 />
               </>
             )}
