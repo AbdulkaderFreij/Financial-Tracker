@@ -2,14 +2,13 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
-
+    use HasApiTokens, Notifiable;
     /**
      * The attributes that are mass assignable.
      *
@@ -18,7 +17,6 @@ class User extends Authenticatable
     protected $fillable = [
         'name', 'email', 'password',
     ];
-
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -28,39 +26,34 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
 
-    protected static function boot(){
-        parent::boot();
+    // protected static function boot()
+    // {
+    //     parent::boot();
 
-        static::created(
-            function ($user){
-                $user->profile()->create([
-                    'title'=> $user->username,
-                ]);
+    //     static::created(
+    //         function ($user) {
+    //             $user->profile()->create([
+    //                 'title' => $user->username,
+    //             ]);
+    //         }
+    //     );
+    // }
 
-            }
-        );
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
     }
 
-    public function profile(){
-        return $this->hasOne(Profile::class);
-        }
 
-
-    public function transactions(){
+    public function transactions()
+    {
         return $this->hasMany(Transaction::class);
-        }
+    }
 
 
-        public function categories(){
-            return $this->hasMany(Category::class);
-            }
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
+    }
 }

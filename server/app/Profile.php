@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Profile extends Model
 {
+    // protected $fillable = [];
     // protected $guarded=[];
 
     public function profileImage(){
