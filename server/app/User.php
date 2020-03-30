@@ -27,33 +27,20 @@ class User extends Authenticatable
     ];
 
 
-    // protected static function boot()
-    // {
-    //     parent::boot();
-
-    //     static::created(
-    //         function ($user) {
-    //             $user->profile()->create([
-    //                 'title' => $user->username,
-    //             ]);
-    //         }
-    //     );
-    // }
-
-    public function profile()
+     public function profile()
     {
-        return $this->hasOne(Profile::class);
+        return $this->hasOne(Profile::class, 'user_id', 'id');
     }
 
 
     public function transactions()
     {
-        return $this->hasMany(Transaction::class);
+        return $this->hasMany(Transaction::class, 'user_id', 'id');
     }
 
 
     public function categories()
     {
-        return $this->hasMany(Category::class);
+        return $this->hasMany(Category::class, 'user_id', 'id');
     }
 }

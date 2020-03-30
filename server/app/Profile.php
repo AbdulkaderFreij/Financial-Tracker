@@ -6,11 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Profile extends Model
 {
-    // protected $fillable = [];
-    // protected $guarded=[];
-
+    protected $guarded=[];
+    protected $fillable = [
+        'first_name', 'last_name', 'phone_number', 'image', 'user_id'
+    ];
     public function profileImage(){
-        $imagePath=($this->image) ?  $this->image : '';
+        $imagePath=($this->image) ?  $this->image : '/profile/0VIz7gS1rt6o1PCukIYnLcnoCKi7Swia1kkzZrI5.png';
         return '/storage/' . $imagePath;
     }
 
