@@ -21,9 +21,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('/login', 'UserController@login')->name('login');
 Route::post('/register', 'UserController@register');
 
-Route::get('/profile/{user}', 'ProfileController@index')->name('profile.show');
-Route::get('/profile/{user}/edit', 'ProfileController@edit')->name('profile.edit');
-Route::patch('/profile/{user}', 'ProfileController@update')->name('profile.update');
+Route::get('/transactions', 'TransactionController@index')->name('transactions.all');
+
+Route::post('/transactions', 'TransactionController@store')->name('transactions.store');
+
+Route::get('/transactions/{transaction}', 'TransactionController@show')->name('transactions.show');
+
+Route::put('/transactions/{transaction}', 'TransactionController@update')->name('transactions.update');
+
+Route::delete('/transactions/{transaction}', 'TransactionController@destroy')->name('transactions.destroy');
 
 Route::group(['middleware' => 'auth:api'], function(){
     Route::get('/logout', 'UserController@logout')->name('logout');
