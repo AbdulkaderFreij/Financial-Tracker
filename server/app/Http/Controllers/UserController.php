@@ -26,6 +26,8 @@ public $successStatus = 200;
             'name'=>'required',
             'email'=>'required|email',
             'password'=>'required',
+            'image'=>'',
+            'currency_id'=>'',
         ]);
 
         $input = $request->all();
