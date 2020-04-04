@@ -9,7 +9,7 @@ class Category extends Model
 {
     use Notifiable;
     protected $fillable = [
-        'name',
+        'name','users_id'
     ];
     protected $guarded=[];
     public function user(){
