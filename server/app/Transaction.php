@@ -57,17 +57,17 @@ class Transaction extends Model
         $this->attributes['users_id'] = $input ? $input : null;
     }
 
-    public function categories()
+    public function category()
     {
         return $this->belongsTo(Category::class, 'categories_id');
     }
 
-    public function users()
+    public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'users_id');
     }
 
-    public function currencies()
+    public function currency()
     {
         return $this->belongsTo(Currency::class, 'currencies_id');
     }

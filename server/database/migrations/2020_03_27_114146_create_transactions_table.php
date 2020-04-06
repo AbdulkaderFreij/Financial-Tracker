@@ -32,7 +32,6 @@ class CreateTransactionsTable extends Migration
             $table->index('users_id');
             $table->index('currencies_id');
             $table->index('categories_id');
-
         });
     }
 

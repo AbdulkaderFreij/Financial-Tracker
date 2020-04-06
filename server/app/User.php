@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','profiles_id'
+        'name', 'email', 'password'
     ];
     /**
      * The attributes that should be hidden for arrays.
@@ -29,23 +29,21 @@ class User extends Authenticatable
 
      public function profile()
     {
-        return $this->hasOne(Profile::class, 'user_id', 'id');
+        return $this->hasOne(Profile::class, 'users_id', 'id');
     }
-
 
     public function transactions()
     {
-        return $this->hasMany(Transaction::class, 'user_id', 'id');
+        return $this->hasMany(Transaction::class, 'users_id', 'id');
     }
 
-    public function currencies()
+    public function currency()
     {
-        return $this->belongsTo(Currency::class, 'currency_id', 'id');
+        return $this->belongsTo(Currency::class, 'currencies_id', 'id');
     }
-
 
     public function categories()
     {
-        return $this->hasMany(Category::class, 'user_id', 'id');
+        return $this->hasMany(Category::class, 'users_id', 'id');
     }
 }

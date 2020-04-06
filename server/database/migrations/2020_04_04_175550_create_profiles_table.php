@@ -15,13 +15,13 @@ class CreateProfilesTable extends Migration
     {
         Schema::create('profiles', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('users_id');
             $table->string('name')->nullable();
-            $table->unsignedBigInteger('currencies_id');
+            $table->unsignedBigInteger('currencies_id')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();
 
-            $table->index('user_id');
+            $table->index('users_id');
             $table->index('currencies_id');
         });
     }

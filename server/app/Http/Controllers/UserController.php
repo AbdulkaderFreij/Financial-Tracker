@@ -28,12 +28,13 @@ public $successStatus = 200;
             'email'=>'required|email',
             'password'=>'required',
             'image'=>'',
-            'currency_id'=>'',
+            'currencies_id'=>'',
         ]);
 
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
+        $input['users_id']=$user->id;
         $success['token'] =  $user->createToken('MyApp')-> accessToken;
         $success['name'] =  $user->name;
         $profile = Profile::create($input);
