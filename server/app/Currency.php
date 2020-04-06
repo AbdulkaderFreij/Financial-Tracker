@@ -13,6 +13,6 @@ class Currency extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['country', 'symbol', 'code', 'profiles_id'];
+    protected $fillable = ['country', 'symbol', 'code'];
 
 }
