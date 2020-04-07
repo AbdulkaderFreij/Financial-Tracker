@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','profiles_id', 'currencies_id'
+        'username', 'name', 'image', 'email', 'password', 'currencies_id'
     ];
     /**
      * The attributes that should be hidden for arrays.
@@ -26,10 +26,9 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-
-     public function profile()
-    {
-        return $this->hasOne(Profile::class, 'users_id', 'id');
+    public function image(){
+        $imagePath=($this->image) ?  $this->image : "";
+        return '/storage/' . $imagePath;
     }
 
     public function transactions()

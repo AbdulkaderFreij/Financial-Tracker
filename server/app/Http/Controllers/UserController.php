@@ -2,7 +2,6 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Profile;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -24,7 +23,8 @@ public $successStatus = 200;
     public function register(Request $request)
     {
         $validator= Validator::make($request->all(), [
-            'name'=>'required',
+            'username'=>'required',
+            'name'=>'',
             'email'=>'required|email',
             'password'=>'required',
             'image'=>'',
@@ -36,9 +36,8 @@ public $successStatus = 200;
         $user = User::create($input);
         $input['users_id']=$user->id;
         $success['token'] =  $user->createToken('MyApp')-> accessToken;
-        $success['name'] =  $user->name;
-        $profile = Profile::create($input);
-        return response()->json(['success'=>$success], $this->successStatus);
+        $success['username'] =  $user->username;
+        return response()->json(['success'=>$success,'user'=>$user] ,$this->successStatus );
     }
 
 public function login(Request $request)
@@ -65,6 +64,12 @@ public function logout(Request $request){
     return response(['message'=>$response,
                       'status'=>200,
 ]);
+}
+
+
+public function user(Request $request)
+{
+    return response()->json($request->user());
 }
 
 }
