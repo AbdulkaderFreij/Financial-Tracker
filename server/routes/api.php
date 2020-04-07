@@ -12,7 +12,6 @@ Route::post('/login', 'UserController@login')->name('login');
 Route::post('/register', 'UserController@register');
 
 
-
 Route::group(['middleware' => 'auth:api'], function(){
 Route::get('/logout', 'UserController@logout')->name('logout');
 Route::get('/currencies', 'CurrencyController@index')->name('currencies.all');

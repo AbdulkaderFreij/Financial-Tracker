@@ -26,7 +26,8 @@ export default class Transactions extends Component {
     super(props);
     this.state = {
       list: [],
-      date: "",
+      start_date: "",
+      end_date:"",
       type: "",
       amount: "",
       interval: "",
@@ -47,9 +48,14 @@ export default class Transactions extends Component {
     this.setState({ isOpen: false });
   };
 
-  date = e => {
+  startDate = e => {
     e.preventDefault();
-    this.setState({ date: e.target.value });
+    this.setState({ start_date: e.target.value });
+  };
+
+  endDate = e => {
+    e.preventDefault();
+    this.setState({ end_date: e.target.value });
   };
   type = e => {
     e.preventDefault();
@@ -79,7 +85,8 @@ export default class Transactions extends Component {
   addTransaction() {
     let newList = this.state.list;
     const input = {
-      date: this.state.date,
+      start_date: this.state.start_date,
+      end: this.state.end_date,
       type: this.state.type,
       amount: this.state.amount,
       interval:this.state.interval,
@@ -91,7 +98,8 @@ export default class Transactions extends Component {
     this.setState({
       list: newList,
       isOpen: false,
-      date: "",
+      start_date: "",
+      end_date: "",
       type: "",
       amount: "",
       interval:"",
@@ -115,7 +123,8 @@ export default class Transactions extends Component {
     this.setState({
       editing: true,
       isOpen: true,
-      date: transaction.date,
+      start_date: transaction.start_date,
+      end_date: transaction.end_date,
       type: transaction.type,
       amount: transaction.amount,
       interval: transaction.interval,
@@ -130,7 +139,8 @@ export default class Transactions extends Component {
         index === this.state.editingIndex
           ? {
               ...transaction,
-              date: this.state.date,
+              start_date: this.state.start_date,
+              end_date: this.state.end_date,
               type: this.state.type,
               amount: this.state.amount,
               interval:this.state.interval,
@@ -141,7 +151,8 @@ export default class Transactions extends Component {
       ),
       editing: false,
       isOpen: false,
-      date: "",
+      start_date: "",
+      end_date: "",
       type: "",
       amount: "",
       interval:"",
@@ -230,13 +241,27 @@ export default class Transactions extends Component {
                       <Form.Field>
                         <input
                           type="datetime-local"
-                          value={this.state.date}
-                          onChange={e => this.date(e)}
+                          value={this.state.start_date}
+                          onChange={e => this.startDate(e)}
                         />
                         <Label basic color="red" pointing>
                           Please enter a date
                         </Label>
                       </Form.Field>
+
+
+                      <Form.Field>
+                        <input
+                          type="datetime-local"
+                          value={this.state.end_date}
+                          onChange={e => this.endDate(e)}
+                        />
+                        <Label basic color="red" pointing>
+                          Please enter a date
+                        </Label>
+                      </Form.Field>
+
+
                       <Form.Field>
                         <Input
                           list="type"
